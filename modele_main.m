@@ -2,6 +2,7 @@ clear global
 close all
 
 v=VideoReader('video.mp4');  
+v.Currenttime=2;
 img1 = readFrame(v); %mettre read(v,1) dans la version 2014 !!!
 imshow(img1);
 [x,y]=ginput(2);
@@ -53,18 +54,22 @@ figure, imagesc(matD);
 %Seuillage, création d'une section pour effectuer les tests de seuillage
 %%
 imageBinaire=zeros(nbrePixelsLigne,nbrePixelsColonne);
-seuil=500;
+seuil=145;
 for k=1:nbrePixelsColonne
     for j=1:nbrePixelsLigne
-        if matD(j,k)<seuil
+        if matD(j,k)<seuil &&matD(j,k)>=0
             imageBinaire(j,k)=1;
         end
     end
 end
+
+muMain=mu;
+sigmaMain=sigma;
+seuilMain=seuil;
 figure, imagesc(imageBinaire),colorbar,colormap(gray(256)); %affichage en noir et blanc
 
 %Sauvegarde des paramètres
-%save('modeleColorEtSeuil.mat','mu','sigma','seuil');
+save('modeleMainColorEtSeuil.mat','muMain','sigmaMain','seuilMain');
 
 
 

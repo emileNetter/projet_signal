@@ -2,6 +2,7 @@ clear global
 close all
 
 v=VideoReader('video.mp4');  
+v.Currenttime=2;
 img1 = readFrame(v); %mettre read(v,1) dans la version 2014 !!!
 imshow(img1);
 [x,y]=ginput(2);
@@ -53,7 +54,7 @@ figure, imagesc(matD);
 %Seuillage, création d'une section pour effectuer les tests de seuillage
 %%
 imageBinaire=zeros(nbrePixelsLigne,nbrePixelsColonne);
-seuil=500;
+seuil=;
 for k=1:nbrePixelsColonne
     for j=1:nbrePixelsLigne
         if matD(j,k)<seuil
