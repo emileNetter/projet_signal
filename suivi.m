@@ -1,4 +1,4 @@
-clear global
+clear all
 close all
 
 load('modeleColorEtSeuil.mat');
@@ -6,9 +6,9 @@ load('modeleColorEtSeuil.mat');
 v=VideoReader('video.mp4');  
 img1 = read(v,1); %mettre read(v,1) dans la version 2014 !!!
 imshow(img1);
-[x,y]=ginput(2);
-imgInteret=img1(min(y):max(y),min(x):max(x),:);
-imshow(imgInteret);
+% [x,y]=ginput(2);
+% imgInteret=img1(min(y):max(y),min(x):max(x),:);
+% imshow(imgInteret);
 
 %Distance de MAHA
 inverseSigma=inv(sigma);
@@ -45,11 +45,13 @@ figure, imagesc(imageBinaire),colorbar,colormap(gray(256)); %affichage en noir e
 
 %Labellisation sur la première image
 
-imageLabelisee = bwlabel(imageBinaire,4);
+imageLabelisee = bwlabel(imageBinaire,4);% voir a quoi sert le 4 , pas ce qu'on pense
 [x1,y1]=find(imageLabelisee==1);
 [x2,y2]=find(imageLabelisee==2);
 [x3,y3]=find(imageLabelisee==3);
 [x4,y4]=find(imageLabelisee==4);
+
+figure, imagesc(imageLabelisee);
 
 
 %calcul barycentres image 1
@@ -58,6 +60,12 @@ bar1=[mean(x1);mean(y1)];
 bar2=[mean(x2);mean(y2)];
 bar3=[mean(x3);mean(y3)];
 bar4=[mean(x4);mean(y4)];
+
+tmp=bar1;
+bar1=bar2;
+bar2=bar4;
+bar4=tmp;
+
 
 
 

@@ -42,7 +42,8 @@ Gimg1=img1(:,:,2);
 Bimg1=img1(:,:,3);
 matD=zeros(nbrePixelsLigne,nbrePixelsColonne);
 
-for k=1:nbrePixelsColonne
+
+for k=1:nbrePixelsColonne % essayer de faire avec tous les points (gain de temps)
     for j=1:nbrePixelsLigne
         xi=[Rimg1(j,k);Gimg1(j,k);Bimg1(j,k)];
         matD(j,k)=calculDistance(xi,mu,sigma);
