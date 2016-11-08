@@ -1,7 +1,10 @@
+
+seuilL=load('modeleColorEtSeuil.mat',seuil);
+muL=load('modeleColorEtSeuil.mat',mu);
+sigmaL=load('modeleColorEtSeuil.mat',sigma);
+
 clear global
 close all
-
-load('modeleColorEtSeuil.mat');
 
 v=VideoReader('video.mp4');  
 img1 = read(v,1); %mettre read(v,1) dans la version 2014 !!!
@@ -9,6 +12,21 @@ imshow(img1);
 [x,y]=ginput(2);
 imgInteret=img1(min(y):max(y),min(x):max(x),:);
 imshow(imgInteret);
+
+mu=[moyenneR;moyenneG;moyenneB];
+
+%calcul de sigma matrice de covariance
+sigma11=mean((vectR-moyenneR).^2);%verifier mean mean
+sigma12=mean((vectR-moyenneR).*(vectG-moyenneG));
+sigma13=mean((vectR-moyenneR).*(vectB-moyenneB));
+sigma21=sigma12;
+sigma22=mean((vectG-moyenneG).^2);
+sigma23=mean((vectG-moyenneG).*(vectB-moyenneB));
+sigma31=sigma13;
+sigma32=sigma23;
+sigma33=mean((vectB-moyenneB).^2);
+
+sigma=[sigma11 sigma12 sigma13; sigma21 sigma22 sigma23; sigma31 sigma32 sigma33];
 
 %Distance de MAHA
 inverseSigma=inv(sigma);
