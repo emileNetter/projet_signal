@@ -53,16 +53,9 @@ figure, imagesc(matD);
 
 %Seuillage, création d'une section pour effectuer les tests de seuillage
 %%
-imageBinaire=zeros(nbrePixelsLigne,nbrePixelsColonne);
 seuil=500;
-for k=1:nbrePixelsColonne
-    for j=1:nbrePixelsLigne
-        if matD(j,k)<seuil
-            imageBinaire(j,k)=1;
-        end
-    end
-end
-figure, imagesc(imageBinaire),colorbar,colormap(gray(256)); %affichage en noir et blanc
+imageBinaire=binarisation(matD,nbrePixelsColonne,nbrePixelsLigne,seuil)
+
 
 %Sauvegarde des paramètres
 %save('modeleColorEtSeuil.mat','mu','sigma','seuil');
