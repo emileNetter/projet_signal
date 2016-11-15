@@ -1,4 +1,4 @@
-function [ordBar]=ordonnerBarycentre(ref, actuel)
+function [ordActuel]=ordonnerBarycentre(ref, actuel)
 % distancemin=(ref(1,1)-actuel(1,1))^2+(ref(2,1)-actuel(2,1)^2);
 % ordBar=zeros(2,4);
 % for i=1:4
@@ -14,6 +14,31 @@ function [ordBar]=ordonnerBarycentre(ref, actuel)
 %     distancemin=(ref(1,1)-actuel(1,1))^2+(ref(2,1)-actuel(2,1)^2);
 % end
 
-matBar = zeros(4,4);
+matDistances = zeros(4,size(actuel,1));
+ordActuel=zeros(4,2);
+distanceMin = (ref(1,1)-actuel(1,1))^2+(ref(2,1)-actuel(2,1)^2);
+matTmp=zeros(4,size(actuel,1);
 
 for i=1:4
+    for j=1:size(actuel,1)
+        matDistances(i,j)=(ref(1,j)-actuel(1,i))^2+(ref(2,j)-actuel(2,i)^2);
+    end
+end
+
+for i=1:4
+    for j=1:size(actuel,1)
+        if matDistances(i,j)<distanceMin
+            distanceMin = matDistances(i,j); % on détecte la plus petite valeur sur chaque ligne
+            matTmp(i,j)=distanceMin;           
+        end
+        
+    end
+    ordActuel(:,i)=actuel(:,j);
+end
+            
+            
+        
+        
+
+
+        
