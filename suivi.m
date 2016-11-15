@@ -8,22 +8,16 @@ load('modeleMainColorEtSeuil.mat')
 v=VideoReader('video.mp4');  
 N=v.NumberofFrames; 
 
-for w=1:2
+for w=50:75
     
 img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!   Faire une boucle avec img(v,w) quand on aura tout réussi,
 %ca sert a rien de refaire sur la 1.
-
-
-
-
 
 %Pas utile ici :
 %imshow(img1); 
 % [x,y]=ginput(2);
 % imgInteret=img1(min(y):max(y),min(x):max(x),:);
 % imshow(imgInteret);
-
-
  
 %%%Distance de MAHA Picot : Trouver comment la rendre plus rapide 
 
@@ -41,7 +35,6 @@ matD2=calculDistance(img1,muMain,sigmaMain);
 
 imageBinairePicot=binarisation(img1,matD,seuil)
 imageBinaireMain=binarisation(img1,matD2,seuilMain)
-
 
 %Labellisation sur la première image
 
@@ -70,19 +63,17 @@ bar3=bar(:,3);
 bar4=bar(:,4);
 
 %Organisation barycentre image 1 
-if w==1
+if w==50
 tmp=bar1;
 bar1=bar2;
 bar2=bar4;
 bar4=tmp;
 bar=[bar1,bar2,bar3,bar4];
-refbar=bar;
 else 
 bar=ordonnerBarycentre(refbar,bar);
 end
- % on stocke le barycentre de l'image pour l'utiliser dans l'image suivante
+refbar=bar;% on stocke le barycentre de l'image pour l'utiliser dans l'image suivante
 % Faire fonction pour ordonner les barycentres d'une image à l'autre
-
 
 
 % Changement image 

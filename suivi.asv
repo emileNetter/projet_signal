@@ -8,7 +8,7 @@ load('modeleMainColorEtSeuil.mat')
 v=VideoReader('video.mp4');  
 N=v.NumberofFrames; 
 
-for w=1:1
+for w=1:2
     
 img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!   Faire une boucle avec img(v,w) quand on aura tout réussi,
 %ca sert a rien de refaire sur la 1.
@@ -76,12 +76,12 @@ bar1=bar2;
 bar2=bar4;
 bar4=tmp;
 bar=[bar1,bar2,bar3,bar4];
+else 
+bar=ordonnerBarycentre(refbar,bar);
 end
-else
-ordonnerBarycentre()
-end
+ % on stocke le barycentre de l'image pour l'utiliser dans l'image suivante
 % Faire fonction pour ordonner les barycentres d'une image à l'autre
-refbar=bar; % on stocke le barycentre de l'image pour l'utiliser dans l'image suivante
+
 
 
 % Changement image 
