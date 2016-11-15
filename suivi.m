@@ -36,8 +36,8 @@ matD2=calculDistance(img1,muMain,sigmaMain);
 %figure, imagesc(matD2);
 
 
-%Seuillage, création d'une section pour effectuer les tests de seuillage
-%% Creer une fonction Binarisation pour plus de clarté 
+%Seuillage + binarisation , création d'une section pour effectuer les tests de seuillage
+
 
 imageBinairePicot=binarisation(img1,matD,seuil)
 imageBinaireMain=binarisation(img1,matD2,seuilMain)
@@ -45,28 +45,36 @@ imageBinaireMain=binarisation(img1,matD2,seuilMain)
 
 %Labellisation sur la première image
 
-imageLabelisee = bwlabel(imageBinairePicot,4);% voir a quoi sert le 4 , pas ce qu'on pense
-[x1,y1]=find(imageLabelisee==1);
-[x2,y2]=find(imageLabelisee==2);
-[x3,y3]=find(imageLabelisee==3);
-[x4,y4]=find(imageLabelisee==4);
+barycentre=findBarycentre(imageBinairePicot);
+
+% Plus besoin de ca on l'a dans la fonction
+% imageLabelisee = bwlabel(imageBinairePicot,4);% voir a quoi sert le 4 , pas ce qu'on pense
+% [x1,y1]=find(imageLabelisee==1);
+% [x2,y2]=find(imageLabelisee==2);
+% [x3,y3]=find(imageLabelisee==3);
+% [x4,y4]=find(imageLabelisee==4);
 
 %figure, imagesc(imageLabelisee);
 
 
 %calcul barycentres image 1
 
-bar1=[mean(x1);mean(y1)];
-bar2=[mean(x2);mean(y2)];
-bar3=[mean(x3);mean(y3)];
-bar4=[mean(x4);mean(y4)];
+% bar1=[mean(x1);mean(y1)];
+% bar2=[mean(x2);mean(y2)];
+% bar3=[mean(x3);mean(y3)];
+% bar4=[mean(x4);mean(y4)];
 
 %Organisation barycentre image 1 
+if w==1
 tmp=bar1;
 bar1=bar2;
 bar2=bar4;
 bar4=tmp;
-
+barycentre=[bar1,bar2,bar3,bar4];
+end
+%else
+%ordonnerBarycentre()
+%end
 % Faire fonction pour ordonner les barycentres d'une image à l'autre
 
 % Changement image 
