@@ -4,11 +4,13 @@ close all
 load('modeleColorEtSeuil.mat');
 load('modeleMainColorEtSeuil.mat')
 
+videoFinale=VideoWriter( 'videoFinale .avi' );
+open(videoFinale);
 
 v=VideoReader('video.mp4');  
 N=v.NumberofFrames; 
 
-for w=50:75
+for w=1:N
     
 img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!   Faire une boucle avec img(v,w) quand on aura tout réussi,
 %ca sert a rien de refaire sur la 1.
@@ -63,7 +65,7 @@ bar3=bar(:,3);
 bar4=bar(:,4);
 
 %Organisation barycentre image 1 
-if w==50
+if w==1
 tmp=bar1;
 bar1=bar2;
 bar2=bar4;
@@ -73,7 +75,6 @@ else
 bar=ordonnerBarycentre(refbar,bar);
 end
 refbar=bar;% on stocke le barycentre de l'image pour l'utiliser dans l'image suivante
-% Faire fonction pour ordonner les barycentres d'une image à l'autre
 
 
 % Changement image 
@@ -81,12 +82,14 @@ refbar=bar;% on stocke le barycentre de l'image pour l'utiliser dans l'image sui
 newImg=imread('LogoBDS.png');
 xPoint=[bar(1,1),bar(1,2),bar(1,3),bar(1,4)];
 yPoint=[bar(2,1),bar(2,2),bar(2,3),bar(2,4)];
-newFrame=motif2frame(newImg,img1,yPoint,xPoint,1,imageBinaireMain);
+newFrame=motif2frame(newImg,img1,yPoint,xPoint,1/1.20,imageBinaireMain);
 
 figure, imagesc(newFrame);
 
-
+writeVideo(videoFinale,newFrame)
 end
+
+close(videoFinale);
 
 
 
