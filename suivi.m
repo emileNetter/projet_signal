@@ -12,28 +12,22 @@ N=v.NumberofFrames;
 
 for w=1:N
     
-img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!   Faire une boucle avec img(v,w) quand on aura tout réussi,
-%ca sert a rien de refaire sur la 1.
+img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!  
 
-%Pas utile ici :
-%imshow(img1); 
-% [x,y]=ginput(2);
-% imgInteret=img1(min(y):max(y),min(x):max(x),:);
-% imshow(imgInteret);
+
  
-%%%Distance de MAHA Picot : Trouver comment la rendre plus rapide 
+%Distance de MAHA Picot 
 
 matD=calculDistance(img1,mu,sigma);
-%figure, imagesc(matD);
+%figure, imagesc(matD); 
 
-%%% Distance de MAHA main :
+% Distance de MAHA main :
 
 matD2=calculDistance(img1,muMain,sigmaMain);
 %figure, imagesc(matD2);
 
 
-%Seuillage + binarisation , création d'une section pour effectuer les tests de seuillage
-
+%Seuillage + binarisation 
 
 imageBinairePicot=binarisation(img1,matD,seuil)
 imageBinaireMain=binarisation(img1,matD2,seuilMain)
@@ -42,39 +36,21 @@ imageBinaireMain=binarisation(img1,matD2,seuilMain)
 
 bar=findBarycentre(imageBinairePicot);
 
-% Plus besoin de ca on l'a dans la fonction
-% imageLabelisee = bwlabel(imageBinairePicot,4);% voir a quoi sert le 4 , pas ce qu'on pense
-% [x1,y1]=find(imageLabelisee==1);
-% [x2,y2]=find(imageLabelisee==2);
-% [x3,y3]=find(imageLabelisee==3);
-% [x4,y4]=find(imageLabelisee==4);
-
-%figure, imagesc(imageLabelisee);
-
-
-%calcul barycentres image 1
-
-% bar1=[mean(x1);mean(y1)];
-% bar2=[mean(x2);mean(y2)];
-% bar3=[mean(x3);mean(y3)];
-% bar4=[mean(x4);mean(y4)];
-
+%Organisation barycentre 
+if w==1 % organisation image 1 faite à la main
 bar1=bar(:,1);
 bar2=bar(:,2);
 bar3=bar(:,3);
 bar4=bar(:,4);
-
-%Organisation barycentre image 1 
-if w==1
 tmp=bar1;
 bar1=bar2;
 bar2=bar4;
 bar4=tmp;
 bar=[bar1,bar2,bar3,bar4];
 else 
-bar=ordonnerBarycentre(refbar,bar);
+bar=ordonnerBarycentre(refbar,bar); % organisation des images suivantes
 end
-refbar=bar;% on stocke le barycentre de l'image pour l'utiliser dans l'image suivante
+refbar=bar;% on stocke le barycentre de l'image actuelle pour l'utiliser dans l'image suivante
 
 
 % Changement image 
@@ -86,10 +62,10 @@ newFrame=motif2frame(newImg,img1,yPoint,xPoint,1/1.20,imageBinaireMain);
 
 figure, imagesc(newFrame);
 
-writeVideo(videoFinale,newFrame)
+%writeVideo(videoFinale,newFrame) %rajoute le frame à la vidéo
 end
 
-close(videoFinale);
+%close(videoFinale); % enregistre la vidéo 
 
 
 

@@ -32,5 +32,5 @@ distMaha=vectGlob.*(invSigma*vectGlob); % on applique la formule de la distance 
 
 distMaha=sum(distMaha,1); % on somme les 3 lignes d'une même colonne pour obtenir la distance de Maha exacte
 
-matD=reshape(distMaha,size(img,1),size(img,2)); % on transforme la matrice en une matrice à la même taille de l'image pour pouvoir appliquer le reste du traitement
+matD=reshape(distMaha,size(img,1),size(img,2)); % on transforme la matrice en une matrice à la même taille de l'image
 

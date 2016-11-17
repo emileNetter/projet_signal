@@ -14,27 +14,60 @@
 %     end
 %     ordActuel(:,indice)=actuel(:,i);
 % end
-load('imageBinaire.mat')
-imageBinaire=imageBinairePicot;
-imageLabelisee = bwlabel(imageBinaire,4);% voir a quoi sert le 4 , pas ce qu'on pense
+
+% load('imageBinaire.mat')
+% imageBinaire=imageBinairePicot;
+% imageLabelisee = bwlabel(imageBinaire,4);% voir a quoi sert le 4 , pas ce qu'on pense
+% 
+% 
+% [x1,y1]=find(imageLabelisee==1);
+% [x2,y2]=find(imageLabelisee==2);
+% [x3,y3]=find(imageLabelisee==3);
+% [x4,y4]=find(imageLabelisee==4);
+% 
+% bar1=[mean(x1);mean(y1)];
+% bar2=[mean(x2);mean(y2)];
+% bar3=[mean(x3);mean(y3)];
+% bar4=[mean(x4);mean(y4)];
+% 
+% barycentrebis=[bar1,bar2,bar3,bar4];
+% 
+% nbTrouve=max(max(imageLabelisee));
+% barycentre=zeros(2,nbTrouve);
+% for i=1:nbTrouve
+% [x,y]=find(imageLabelisee==i);
+% bar=[mean(x);mean(y)];
+% barycentre(:,i)=bar;
+% end;
 
 
-[x1,y1]=find(imageLabelisee==1);
-[x2,y2]=find(imageLabelisee==2);
-[x3,y3]=find(imageLabelisee==3);
-[x4,y4]=find(imageLabelisee==4);
+% Calcule distance MAHA optimisée
 
-bar1=[mean(x1);mean(y1)];
-bar2=[mean(x2);mean(y2)];
-bar3=[mean(x3);mean(y3)];
-bar4=[mean(x4);mean(y4)];
+load('modeleColorEtSeuil.mat')
+v=VideoReader('video.mp4');  
+img = read(v,1);
 
-barycentrebis=[bar1,bar2,bar3,bar4];
+invSigma=inv(sigma);
+Rimg=double(img(:,:,1));
+Gimg=double(img(:,:,2));
+Bimg=double(img(:,:,3));
 
-nbTrouve=max(max(imageLabelisee));
-barycentre=zeros(2,nbTrouve);
-for i=1:nbTrouve
-[x,y]=find(imageLabelisee==i);
-bar=[mean(x);mean(y)];
-barycentre(:,i)=bar;
-end;
+a=reshape(Rimg,1,[])-mu(1);
+b=reshape(Gimg,1,[])-mu(2);
+c=reshape(Bimg,1,[])-mu(3);
+
+
+vectGlob=[a;b;c];
+ 
+% g=invSigma * vectGlob;
+distMaha=vectGlob.*(invSigma*vectGlob);
+
+distMaha=sum(distMaha,1);
+
+distMaha=reshape(distMaha,size(img,1),size(img,2));
+
+
+
+
+
+
