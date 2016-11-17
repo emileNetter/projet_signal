@@ -8,7 +8,7 @@ load('modeleMainColorEtSeuil.mat')
 v=VideoReader('video.mp4');  
 N=v.NumberofFrames; 
 
-for w=50:75
+for w=56:60
     
 img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!   Faire une boucle avec img(v,w) quand on aura tout réussi,
 %ca sert a rien de refaire sur la 1.
@@ -63,7 +63,7 @@ bar3=bar(:,3);
 bar4=bar(:,4);
 
 %Organisation barycentre image 1 
-if w==50
+if w==56
 tmp=bar1;
 bar1=bar2;
 bar2=bar4;
