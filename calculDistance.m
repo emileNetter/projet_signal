@@ -1,21 +1,5 @@
 function [ matD ] = calculDistance(img,mu,sigma)
-% nbrePixelsColonne=size(img,2);
-% nbrePixelsLigne=size(img,1);
-% Rimg=img(:,:,1);
-% Gimg=img(:,:,2);
-% Bimg=img(:,:,3);
-% matD=zeros(nbrePixelsLigne,nbrePixelsColonne);
-% inverseSigma=inv(sigma);
-% 
-% for k=1:nbrePixelsColonne
-%     for j=1:nbrePixelsLigne
-%         xi=[Rimg(j,k);Gimg(j,k);Bimg(j,k)];
-%         xi=double(xi);
-%         matD(j,k)=((xi-mu)')*inverseSigma*(xi-mu);;
-%     end
-% end
-% 
-% end
+
 
 invSigma=inv(sigma);
 Rimg=double(img(:,:,1));
@@ -34,3 +18,4 @@ distMaha=sum(distMaha,1); % on somme les 3 lignes d'une même colonne pour obteni
 
 matD=reshape(distMaha,size(img,1),size(img,2)); % on transforme la matrice en une matrice à la même taille de l'image pour pouvoir appliquer le reste du traitement
 
+%figure,imagesc(matD);

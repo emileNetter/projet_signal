@@ -10,7 +10,7 @@ open(videoFinale);
 v=VideoReader('video.mp4');  
 N=v.NumberofFrames; 
 
-for w=1:N
+for w=1:70
     
 img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!  
 

@@ -1,4 +1,4 @@
-clear global
+clear all
 close all
 
 
@@ -24,7 +24,7 @@ moyenneB=mean(vectB);
 mu=[moyenneR;moyenneG;moyenneB];
 
 %calcul de sigma matrice de covariance
-sigma11=mean((vectR-moyenneR).^2);%verifier mean mean
+sigma11=mean((vectR-moyenneR).^2);
 sigma12=mean((vectR-moyenneR).*(vectG-moyenneG));
 sigma13=mean((vectR-moyenneR).*(vectB-moyenneB));
 sigma21=sigma12;
@@ -37,35 +37,20 @@ sigma33=mean((vectB-moyenneB).^2);
 sigma=[sigma11 sigma12 sigma13; sigma21 sigma22 sigma23; sigma31 sigma32 sigma33];
 
 %Distance de MAHA
-inverseSigma=inv(sigma);
-nbrePixelsColonne=size(img1,2);
-nbrePixelsLigne=size(img1,1);
-Rimg1=img1(:,:,1);
-Gimg1=img1(:,:,2);
-Bimg1=img1(:,:,3);
-matD=zeros(nbrePixelsLigne,nbrePixelsColonne);
-
-for k=1:nbrePixelsColonne
-    for j=1:nbrePixelsLigne
-        xi=[Rimg1(j,k);Gimg1(j,k);Bimg1(j,k)];
-        matD(j,k)=calculDistance(xi,mu,sigma);
-    end
-end
-figure, imagesc(matD);
-
+matD=calculDistance(img1,mu,sigma);
 %Seuillage, création d'une section pour effectuer les tests de seuillage
 %%
 seuil=145;
-imageBinaire=binarisation(matD,nbrePixelsColonne,nbrePixelsLigne,seuil)
+imageBinaire=binarisation(img1,matD,seuil);
 
 
 
 muMain=mu;
 sigmaMain=sigma;
 seuilMain=seuil;
-figure, imagesc(imageBinaire),colorbar,colormap(gray(256)); %affichage en noir et blanc
 
-%Sauvegarde des paramètres
+
+%Sauvegarde des paramètres pour lesutiliser dans le reste du traitemmennt
 %save('modeleMainColorEtSeuil.mat','muMain','sigmaMain','seuilMain');
 
 
