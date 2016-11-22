@@ -12,7 +12,7 @@ for i=1:a
         indice=j; % on trouve le numéro du barycentre correspondant
     end
     end
-    if ordActuel(:,indice)~=[0;0];% Si il y a déja un barycentre correspondant à la même colonne, on compare les distances afin d'éliminer le mauvais barycentre
+    if ordActuel(:,indice)~= [0;0];% Si il y a déja un barycentre correspondant à la même colonne, on compare les distances afin d'éliminer le mauvais barycentre
         distanceBarPresent=(ref(1,indice)-ordActuel(1,indice))^2+(ref(2,indice)-ordActuel(2,indice))^2;
         if distancemin<distanceBarPresent
             ordActuel(:,indice)=actuel(:,i);
@@ -21,6 +21,5 @@ for i=1:a
         ordActuel(:,indice)=actuel(:,i);
     end
 end
-            
-    
+              
 end

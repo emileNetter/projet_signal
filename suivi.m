@@ -10,12 +10,10 @@ open(videoFinale);
 v=VideoReader('video.mp4');  
 N=v.NumberofFrames; 
 
-for w=1:70
+for w=1:N
     
-img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!  
+img1 = read(v,w);   
 
-
- 
 %Distance de MAHA Picot 
 
 matD=calculDistance(img1,mu,sigma);
@@ -26,11 +24,10 @@ matD=calculDistance(img1,mu,sigma);
 matD2=calculDistance(img1,muMain,sigmaMain);
 %figure, imagesc(matD2);
 
-
 %Seuillage + binarisation 
 
-imageBinairePicot=binarisation(img1,matD,seuil)
-imageBinaireMain=binarisation(img1,matD2,seuilMain)
+imageBinairePicot=binarisation(img1,matD,seuil);
+imageBinaireMain=binarisation(img1,matD2,seuilMain);
 
 %Labellisation sur la première image
 
@@ -60,18 +57,9 @@ xPoint=[bar(1,1),bar(1,2),bar(1,3),bar(1,4)];
 yPoint=[bar(2,1),bar(2,2),bar(2,3),bar(2,4)];
 newFrame=motif2frame(newImg,img1,yPoint,xPoint,1/1.20,imageBinaireMain);
 
-figure, imagesc(newFrame);
+%figure, imagesc(newFrame);
 
-%writeVideo(videoFinale,newFrame) %rajoute le frame à la vidéo
+writeVideo(videoFinale,newFrame) %rajoute la frame à la vidéo
 end
 
-%close(videoFinale); % enregistre la vidéo 
-
-
-
-
-
-
-
-
-    
+close(videoFinale); % enregistre la vidéo  

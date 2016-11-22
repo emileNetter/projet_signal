@@ -1,5 +1,5 @@
 function [barycentre] = findBarycentre(imageBinaire)
-imageLabelisee = bwlabel(imageBinaire,4);% voir a quoi sert le 4 , pas ce qu'on pense
+imageLabelisee = bwlabel(imageBinaire);
 nbTrouve=max(max(imageLabelisee));
 barycentre=zeros(2,nbTrouve);
 for i=1:nbTrouve
