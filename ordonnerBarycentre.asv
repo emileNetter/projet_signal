@@ -14,7 +14,7 @@ for i=1:a
     if ordActuel(:,indice)~=[0;0];% Si il y a déja un barycentre correspondant à la même colonne, on compare les distances afin d'éliminer le mauvais barycentre
         distanceBarPresent=(ref(1,indice)-ordActuel(1,indice))^2+(ref(2,indice)-ordActuel(2,indice))^2;
         if distancemin<distanceBarPresent
-            ordActuel(:,indice)=actuel(:,i);% si la distance du barycentre actuelle est plus petite que celui stocké, on le remplace 
+            ordActuel(:,indice)=actuel(:,i);% s
         end
     else
         ordActuel(:,indice)=actuel(:,i);

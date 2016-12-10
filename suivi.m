@@ -10,9 +10,9 @@ open(videoFinale);
 v=VideoReader('video.mp4');  
 N=v.NumberofFrames; 
 
-for w=1:70
+for w=1:1
     
-img1 = read(v,w);  %mettre read(v,1) dans la version 2014 !!!  
+img1 = read(v,w);    
 
 
  
@@ -29,8 +29,8 @@ matD2=calculDistance(img1,muMain,sigmaMain);
 
 %Seuillage + binarisation 
 
-imageBinairePicot=binarisation(img1,matD,seuil)
-imageBinaireMain=binarisation(img1,matD2,seuilMain)
+imageBinairePicot=binarisation(img1,matD,seuil);
+imageBinaireMain=binarisation(img1,matD2,seuilMain);
 
 %Labellisation sur la première image
 
